@@ -1,13 +1,29 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class Weather extends StatelessWidget {
-  final String url = 'http://api.openweathermap.org/data/2.5/weather?q=Varanasi&units=metric&appid=c4d43f47ca2c4387e922975a2bf99380';
+class Weather extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _WeatherCreateState();
+  }
+}
 
-  void value() {
-     http.get(url).then((http.Response response) {
-       print(response.body); 
-     });
+class _WeatherCreateState extends State<Weather> {
+  String cityValue;
+  String temperature;
+
+  void temp() {
+    String url =
+        'http://api.openweathermap.org/data/2.5/weather?q=$cityValue&units=metric&appid=c4d43f47ca2c4387e922975a2bf99380';
+    http.get(url).then((http.Response response) {
+      final val = jsonDecode(response.body);
+      final tem = val['main']['temp'];
+      temperature = tem.toString();
+      print(temperature);
+    });
   }
 
   @override
@@ -16,16 +32,29 @@ class Weather extends StatelessWidget {
       appBar: AppBar(
         title: Text('Weather App'),
       ),
-      body: Column(
-        children: <Widget>[
-          Center(
-            child: RaisedButton(
-              child: Text('click', style: TextStyle(color: Colors.white)),
-              onPressed: value,
-              color: Colors.black,
+      body: Container(
+        margin: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            TextField(
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(labelText: 'City'),
+              onChanged: (String value) {
+                setState(() {
+                  cityValue = value;
+                });
+              },
             ),
-          ),
-        ],
+            SizedBox(
+              height: 30.0,
+            ),
+            RaisedButton(
+              child: Text('click', style: TextStyle(color: Colors.white)),
+              onPressed: temp,
+              color: Colors.black,
+            )
+          ],
+        ),
       ),
     );
   }
