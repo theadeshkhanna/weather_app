@@ -44,7 +44,7 @@ class _WeatherCreateState extends State<Weather> {
               },
             ),
             SizedBox(
-              height: 30.0,
+              height: 20.0,
             ),
             RaisedButton(
               child: Text('click', style: TextStyle(color: Colors.white)),
