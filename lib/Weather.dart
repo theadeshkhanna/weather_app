@@ -12,16 +12,22 @@ class Weather extends StatefulWidget {
 class _WeatherCreateState extends State<Weather> {
   String cityValue;
   String temperature;
+  Map <String, dynamic> things;
 
   void temp() {
     String url =
         'http://api.openweathermap.org/data/2.5/weather?q=$cityValue&units=metric&appid=c4d43f47ca2c4387e922975a2bf99380';
     http.get(url).then((http.Response response) {
-      final val = jsonDecode(response.body);
-      final tem = val['main']['temp'];
-      temperature = tem.toString();
-      print(temperature);
+      final Map<String, dynamic> val = jsonDecode(response.body);
+      things = val;
+      // final tem = val['main']['temp'];
+      // temperature = tem.toString();
+      print(val);
     });
+  }
+
+  String bhasad() {
+    return things.toString();
   }
 
   @override
@@ -50,7 +56,8 @@ class _WeatherCreateState extends State<Weather> {
               child: Text('click', style: TextStyle(color: Colors.white)),
               onPressed: temp,
               color: Colors.black,
-            )
+            ),
+            
           ],
         ),
       ),
