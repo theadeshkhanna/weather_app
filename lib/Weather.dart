@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import './landing.dart';
+import './Models/Weather.dart';
 
 class Weather extends StatefulWidget {
   @override
@@ -14,26 +13,32 @@ class Weather extends StatefulWidget {
 class _WeatherCreateState extends State<Weather> {
   String cityValue;
   String temperature;
+  Weather weather;
   //  Map <String, dynamic> val = {};
   // final Map<String, dynamic> things = {};
 
-  String temp() {
-    String url =
-        'http://api.openweathermap.org/data/2.5/weather?q=$cityValue&units=metric&appid=c4d43f47ca2c4387e922975a2bf99380';
+  temp() {
+    String url = 'http://api.openweathermap.org/data/2.5/weather?q=$cityValue&units=metric&appid=c4d43f47ca2c4387e922975a2bf99380';
     http.get(url).then((http.Response response) {
-      final Map<String, dynamic> val = jsonDecode(response.body);
+      // final Map<String, dynamic> val = jsonDecode(response.body);
       // things = val;
       // final tem = val['main']['temp'];
       // temperature = tem.toString();
       // tafree.add(things.toString());
-      print(val);
-      return val.toString();
+      // print(val);
+      // return val.toString();
+      // temperature = new weather.fromJson(jsonDecode(response.body));
     });
   }
 
   // String bhasad() {
-    
+
   // }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +64,7 @@ class _WeatherCreateState extends State<Weather> {
             ),
             RaisedButton(
               child: Text('click', style: TextStyle(color: Colors.white)),
-              onPressed: () {
-                String to = temp();
-                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                    return Landing(to);
-                }));
-              },
+              onPressed: temp,
               color: Colors.black,
             ),
           ],
