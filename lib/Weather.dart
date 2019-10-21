@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:async';
 import './Models/Weather.dart';
 
 class Weather extends StatefulWidget {
@@ -11,33 +12,37 @@ class Weather extends StatefulWidget {
 }
 
 class _WeatherCreateState extends State<Weather> {
-  String cityValue;
   String temperature;
   Weather weather;
-  //  Map <String, dynamic> val = {};
-  // final Map<String, dynamic> things = {};
+  String cityValue;
 
-  temp() {
+  Future<Map>temp(String cityValue) async {
     String url = 'http://api.openweathermap.org/data/2.5/weather?q=$cityValue&units=metric&appid=c4d43f47ca2c4387e922975a2bf99380';
-    http.get(url).then((http.Response response) {
-      // final Map<String, dynamic> val = jsonDecode(response.body);
-      // things = val;
-      // final tem = val['main']['temp'];
-      // temperature = tem.toString();
-      // tafree.add(things.toString());
-      // print(val);
-      // return val.toString();
-      // temperature = new weather.fromJson(jsonDecode(response.body));
-    });
+      http.Response response = await http.get(url);
+
+      return jsonDecode(response.body);
   }
 
-  // String bhasad() {
-
-  // }
-
-  @override
-  void initState() {
-    super.initState();
+  Widget updateTempWidget(String cityvalue) {
+    return new FutureBuilder(
+      future: temp(cityValue),
+      builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
+        if(snapshot.hasData) {
+          Map content = snapshot.data;
+          return new Container(
+            child: new Column(
+              children: <Widget>[
+                new ListTile(
+                  title: new Text(content['main']['temp'].toString()),
+                )
+              ],
+            ),
+          );
+        }
+        else {
+          return new Container();
+        }
+      });
   }
 
   @override
@@ -62,11 +67,9 @@ class _WeatherCreateState extends State<Weather> {
             SizedBox(
               height: 20.0,
             ),
-            RaisedButton(
-              child: Text('click', style: TextStyle(color: Colors.white)),
-              onPressed: temp,
-              color: Colors.black,
-            ),
+            Container(
+              child: updateTempWidget(cityValue),
+            )
           ],
         ),
       ),
