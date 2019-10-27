@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Weather.dart';
+import 'package:weather_app/Landing.dart';
 
 void main () => runApp(new WeatherApp());
 
@@ -10,7 +10,7 @@ class WeatherApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange
       ),
-      home: Weather(),
+      home: Landing(),
     );
   }
 }
