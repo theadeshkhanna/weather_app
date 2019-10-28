@@ -8,41 +8,49 @@ class Landing extends StatefulWidget {
 }
 
 class _LandingState extends State<Landing> {
-
-  var _textController = new TextEditingController(); 
+  var _textController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Weather App'),
-        centerTitle: true,
-      ),
-      body: new Container(
-        child: Column(
-              children: <Widget>[
-                new TextField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      labelText: 'City',
-                    ),
-                    controller: _textController,
-                  ),
-                new ListTile(
-                  leading: new RaisedButton(
-                    child: new Text('Get Weather'),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-                        return Weather(city : _textController.text);
-                      }));
-                    },
-                  ),
-                )
-              
-            
-          ],
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              AppBar(
+                automaticallyImplyLeading: false,
+                title: Text('Drawer'),
+              ),
+            ],
+          ),
         ),
-      )
-    );
+        appBar: AppBar(),
+        body: new Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Container(
+                margin: EdgeInsets.only(left: 15),
+                width: 380,
+                child: new TextField(
+                  cursorColor: Colors.black,
+                  keyboardType: TextInputType.text,
+                  controller: _textController,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              new RaisedButton(
+                child: new Text('Get Weather'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return Weather(city: _textController.text);
+                  }));
+                },
+              ),
+            ],
+          ),
+        ));
   }
 }
