@@ -47,7 +47,7 @@ Widget updateTempWidget(String city) {
                             child: Text(
                               content['main']['temp_min'].toString() + '°',
                               style:
-                                  TextStyle(fontSize: 40, color: Colors.grey),
+                                  TextStyle(fontSize: 30, color: Colors.grey),
                             )),
                         Container(
                             padding: EdgeInsets.only(right: 20),
@@ -59,16 +59,16 @@ Widget updateTempWidget(String city) {
                       ],
                     ),
                     SizedBox(
-                      width: 30,
+                      width: 15,
                     ),
                     Container(
                         padding: EdgeInsets.only(top: 100),
                         child: Text(
                           content['main']['temp'].toString() + '°',
-                          style: TextStyle(fontSize: 100),
+                          style: TextStyle(fontSize: 75),
                         )),
                     SizedBox(
-                      width: 20,
+                      width: 10,
                     ),
                     Column(
                       children: <Widget>[
@@ -77,7 +77,7 @@ Widget updateTempWidget(String city) {
                             child: Text(
                               content['main']['temp_max'].toString() + '°',
                               style:
-                                  TextStyle(fontSize: 40, color: Colors.grey),
+                                  TextStyle(fontSize: 30, color: Colors.grey),
                             )),
                         Container(
                             padding: EdgeInsets.only(right: 20),
@@ -98,7 +98,89 @@ Widget updateTempWidget(String city) {
                   indent: 15,
                   endIndent: 15,
                   color: Colors.green,
-                )
+                ),
+                new Card(
+                  child: new Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Longitude : '),
+                        Text(content['coord']['lon'].toString()),
+                        Text('     |     '),
+                        Text('Latitude : '),
+                        Text(content['coord']['lat'].toString()),
+                      ],
+                    ),
+                  ),
+                ),
+                new Card(
+                  child: new Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Visibility : '),
+                        Text(content['visibility'].toString())
+                      ],
+                    ),
+                  ),
+                ),
+                new Card(
+                  child: new Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Wind Speed : '),
+                        Text(content['wind']['speed'].toString() + ' m/sec')
+                      ],
+                    ),
+                  ),
+                ),
+                new Card(
+                  child: new Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Sunrise : '),
+                        Text(content['sys']['sunrise'].toString()),
+                        Text('     |     '),
+                        Text('Sunset : '),
+                        Text(content['sys']['sunset'].toString()),
+                      ],
+                    ),
+                  ),
+                ),
+                new Card(
+                  child: new Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Humidity : '),
+                        Text(content['main']['humidity'].toString()),
+                        Text('     |     '),
+                        Text('Pressure : '),
+                        Text(content['main']['pressure'].toString() +' hPa'),
+                      ],
+                    ),
+                  ),
+                ),
+                new Card(
+                  child: new Container(
+                    padding:
+                        EdgeInsets.only(top: 20, bottom: 20),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Description : '),
+                        Text(content['weather'][0]['description'].toString())
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           );
