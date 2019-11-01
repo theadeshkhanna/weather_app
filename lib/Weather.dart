@@ -29,6 +29,17 @@ Future<Map> temp(String city) async {
 }
 
 Widget updateTempWidget(String city) {
+  String convert(val) {
+    var hour =
+        new DateTime.fromMillisecondsSinceEpoch(val * 1000).hour.toString();
+    var min =
+        new DateTime.fromMillisecondsSinceEpoch(val * 1000).minute.toString();
+    var sec =
+        new DateTime.fromMillisecondsSinceEpoch(val * 1000).second.toString();
+
+    return (hour + ':' + min + ':' + sec);
+  }
+
   return new FutureBuilder(
       future: temp(city),
       builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
@@ -145,10 +156,10 @@ Widget updateTempWidget(String city) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text('Sunrise : '),
-                        Text(content['sys']['sunrise'].toString()),
+                        Text(convert(content['sys']['sunrise'])),
                         Text('     |     '),
                         Text('Sunset : '),
-                        Text(content['sys']['sunset'].toString()),
+                        Text(convert(content['sys']['sunset'])),
                       ],
                     ),
                   ),
@@ -160,18 +171,17 @@ Widget updateTempWidget(String city) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text('Humidity : '),
-                        Text(content['main']['humidity'].toString()),
+                        Text(content['main']['humidity'].toString() + ' %'),
                         Text('     |     '),
                         Text('Pressure : '),
-                        Text(content['main']['pressure'].toString() +' hPa'),
+                        Text(content['main']['pressure'].toString() + ' hPa'),
                       ],
                     ),
                   ),
                 ),
                 new Card(
                   child: new Container(
-                    padding:
-                        EdgeInsets.only(top: 20, bottom: 20),
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
                     child: new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
