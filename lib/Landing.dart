@@ -13,9 +13,8 @@ class _LandingState extends State<Landing> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      key: scaffoldKey,
+        key: scaffoldKey,
         drawer: Drawer(
           child: Column(
             children: <Widget>[
@@ -27,44 +26,71 @@ class _LandingState extends State<Landing> {
           ),
         ),
         body: new Container(
+          width: double.infinity,
+          height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/bg.jpg'),
-              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.65), BlendMode.overlay),
-              fit: BoxFit.cover
-            )
+                image: AssetImage('assets/bg.jpg'),
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.75), BlendMode.overlay),
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.menu, color: Colors.white),
-                onPressed: () => scaffoldKey.currentState.openDrawer(),
+              new Container(
+                padding: EdgeInsets.only(right: 360),
+                child: IconButton(
+                  icon: Icon(Icons.menu, color: Colors.white),
+                  onPressed: () => scaffoldKey.currentState.openDrawer(),
+                ),
               ),
               new Container(
-                margin: EdgeInsets.only(left: 15),
-                width: 380,
-                child: new TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder()
+                margin: EdgeInsets.only(top: 100),
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(color: Colors.white),
+                    children: <TextSpan>[
+                      TextSpan(text: 'WeatherGo\n', style: TextStyle(fontSize: 40)),
+                    ]
                   ),
-                  style: TextStyle(color: Colors.white),
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  controller: _textController,
                 ),
+              ),
+              new Container(
+                margin: EdgeInsets.only(top: 135, left: 30, right: 30),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 2.5),
+                    borderRadius: BorderRadius.circular(20)),
+                child: new Container(
+                    padding: EdgeInsets.only(left: 10),
+                    child: new TextField(
+                      decoration: InputDecoration(border: InputBorder.none),
+                      style: TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      controller: _textController,
+                    )),
               ),
               SizedBox(
                 height: 20,
               ),
-              new RaisedButton(
-                child: new Text('Get Weather'),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return Weather(city: _textController.text);
-                  }));
-                },
+              new Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 2.5),
+                    borderRadius: BorderRadius.circular(20)),
+                child: new RaisedButton(
+                  color: Colors.transparent,
+                  child: new Text(
+                    'Get Weather',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return Weather(city: _textController.text);
+                    }));
+                  },
+                ),
               ),
             ],
           ),
