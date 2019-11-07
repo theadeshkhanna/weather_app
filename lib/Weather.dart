@@ -38,10 +38,17 @@ Widget updateTempWidget(String city) {
     return (hour + ':' + min + ':' + sec);
   }
 
-  return new FutureBuilder(
-      future: temp(city),
-      builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
-        if (snapshot.hasData) {
+  if (city == '') {
+    return Container(
+      child: Center(
+        child: Text('Enter a city Name'), 
+      ),
+    );
+     
+  } else {
+    return new FutureBuilder(
+        future: temp(city),
+        builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
           Map content = snapshot.data;
           return new Container(
             decoration: BoxDecoration(
@@ -252,8 +259,6 @@ Widget updateTempWidget(String city) {
               ],
             ),
           );
-        } else {
-          return new Container();
-        }
-      });
+        });
+  }
 }
