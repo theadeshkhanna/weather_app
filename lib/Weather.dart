@@ -38,17 +38,10 @@ Widget updateTempWidget(String city) {
     return (hour + ':' + min + ':' + sec);
   }
 
-  if (city == '') {
-    return Container(
-      child: Center(
-        child: Text('Enter a city Name'), 
-      ),
-    );
-     
-  } else {
-    return new FutureBuilder(
-        future: temp(city),
-        builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
+  return new FutureBuilder(
+      future: temp(city),
+      builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
+        if (snapshot.hasData) {
           Map content = snapshot.data;
           return new Container(
             decoration: BoxDecoration(
@@ -259,6 +252,13 @@ Widget updateTempWidget(String city) {
               ],
             ),
           );
-        });
-  }
+        } else {
+          return new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CircularProgressIndicator(),
+            ],
+          );
+        }
+      });
 }
